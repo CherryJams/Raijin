@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -21,6 +22,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public bool canDoubleJump = true; //If player can double jump
 	[SerializeField] private float m_DashForce = 25f;
+	private int dashCount = 0;
 	private bool canDash = true;
 	private bool isDashing = false; //If player is dashing
 	private bool m_IsWall = false; //If there is a wall in front of the player
@@ -134,7 +136,7 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump, bool dash)
 	{
 		if (canMove) {
-			if (dash && canDash && !isWallSliding)
+			if (dash && canDash && !isWallSliding && dashCount>0)
 			{
 				//m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_DashForce, 0f));
 				StartCoroutine(DashCooldown());
@@ -282,14 +284,24 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.CompareTag("Book"))
+		{
+			dashCount++; 
+			Destroy(other.gameObject);
+		}
+	}
+
 	IEnumerator DashCooldown()
 	{
+		dashCount--;
 		animator.SetBool("IsDashing", true);
 		isDashing = true;
 		canDash = false;
 		yield return new WaitForSeconds(0.1f);
 		isDashing = false;
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.1f);
 		canDash = true;
 	}
 
