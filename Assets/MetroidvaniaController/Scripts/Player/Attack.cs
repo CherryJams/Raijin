@@ -28,7 +28,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.X) && canAttack)
+		/*if (Input.GetKeyDown(KeyCode.X) && canAttack)
 		{
 			canAttack = false;
 			animator.SetBool("IsAttacking", true);
@@ -41,7 +41,7 @@ public class Attack : MonoBehaviour
 			Vector2 direction = new Vector2(transform.localScale.x, 0);
 			throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction; 
 			throwableWeapon.name = "ThrowableWeapon";
-		}
+		}*/
 	}
 
 	IEnumerator AttackCooldown()
