@@ -21,6 +21,7 @@ public class CharacterController2D : MonoBehaviour
 	private float limitFallSpeed = 25f; // Limit fall speed
 
 	public bool canDoubleJump = true; //If player can double jump
+	public bool hasDoubleJump = false;
 	[SerializeField] private float m_DashForce = 25f;
 	private int dashCount = 0;
 	private bool canDash = true;
@@ -181,7 +182,7 @@ public class CharacterController2D : MonoBehaviour
 				particleJumpDown.Play();
 				particleJumpUp.Play();
 			}
-			else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
+			else if (!m_Grounded && jump && canDoubleJump && hasDoubleJump && !isWallSliding)
 			{
 				canDoubleJump = false;
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
