@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controller;
     public Animator animator;
+    [SerializeField] PauseMenu pauseMenu;
 
     public float runSpeed = 40f;
 
@@ -14,37 +16,43 @@ public class PlayerMovement : MonoBehaviour
     bool dash = false;
 
     //bool dashAxis = false;
+    private void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+        if (!pauseMenu.GameIsPaused)
         {
-            jump = true;
-        }
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            dash = true;
-        }
+            animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        /*if (Input.GetAxisRaw("Dash") == 1 || Input.GetAxisRaw("Dash") == -1) //RT in Unity 2017 = -1, RT in Unity 2019 = 1
-        {
-            if (dashAxis == false)
+            if (Input.GetKeyDown(KeyCode.W) )
             {
-                dashAxis = true;
+                jump = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.J))
+            {
                 dash = true;
             }
-        }
-        else
+
+            /*if (Input.GetAxisRaw("Dash") == 1 || Input.GetAxisRaw("Dash") == -1) //RT in Unity 2017 = -1, RT in Unity 2019 = 1
+    {
+        if (dashAxis == false)
         {
-            dashAxis = false;
+            dashAxis = true;
+            dash = true;
         }
-        */
+    }
+    else
+    {
+        dashAxis = false;
+    }
+    */
+        }
     }
 
     public void OnFall()
