@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        Cursor.visible = true;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!IsLevelStarted)
@@ -88,7 +89,6 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        Debug.Log("pressed resume");
         if (IsLevelStarted)
         {
             ResumeLevel();
@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quitting game...");
         Application.Quit();
     }
 }
