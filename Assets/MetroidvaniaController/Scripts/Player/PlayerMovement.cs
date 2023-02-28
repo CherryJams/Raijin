@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controller;
     public Animator animator;
-    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] GameManager gameManager;
 
     public float runSpeed = 40f;
 
@@ -16,14 +13,11 @@ public class PlayerMovement : MonoBehaviour
     bool dash = false;
 
     //bool dashAxis = false;
-    private void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!pauseMenu.GameIsPaused)
+        if (gameManager.IsLevelStarted)
         {
             horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
